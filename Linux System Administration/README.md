@@ -2,7 +2,7 @@
 
 Pada kelas Linux System Administration ini mempunyai pokok bahasan seputar sistem administrasi linux, seperti penginstalan, konfigurasi jaringan, tata kelola penyimpanan dan administrasi keamanan dasar.  
 
-**Daftar isi materi**:
+## **Daftar isi materi**:
   * Access systems
   * Navigate file systems
   * Manage local users and groups
