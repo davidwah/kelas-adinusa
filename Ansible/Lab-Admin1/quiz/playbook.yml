@@ -1,0 +1,30 @@
+- name: install and start mariadb service
+  hosts: dbserver
+  become: true
+
+  tasks:
+    - name: Install MariaDB repository
+      apt_repository: repo='deb https://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu/ focal main' state=present
+
+    - name: Add apt key
+      apt_key: keyserver=keyserver.ubuntu.com:80 id=0xF1656F24C74CD1D8
+
+    - name: Install MariaDB
+      apt:
+        name:
+          - mariadb-client
+          - mariadb-server
+        state: latest
+        update_cache: yes
+
+    - name: Install python module
+      apt: 
+        name: 
+          - python3-mysqldb
+        state: present
+
+    - name: Modify configuration file to listen on all interfaces
+      lineinfile: dest=/etc/mysql/my.cnf regexp="^bind-address" line="bind-address=0.0.0.0"
+
+    - name: Start MariaDB Service
+      service: name=mysql state=restarted
