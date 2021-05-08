@@ -1,0 +1,43 @@
+- name: create user DEV and OPS 1-50
+  hosts: node01
+  become: true
+
+  vars_files:
+    - secret.yml
+  tasks:
+    - name: Creating user dev from 1-50
+      user:
+        name: "{{  item  }}"
+        state: present
+        password: "{{pw | password_hash('sha512')}}"
+      with_sequence: start=1 end=50 format=dev%02x
+
+    - name: Creating user ops from 1-50
+      user:
+        name: "{{  item  }}"
+        state: present
+        password: "{{pw | password_hash('sha512')}}"
+      with_sequence: start=1 end=50 format=ops%02x
+
+
+
+- name: create user DEV and OPS 51-100
+  hosts: node02
+  become: true
+
+  vars_files:
+    - secret.yml
+  tasks:
+    - name: Creating user dev from 51-100
+      user:
+        name: "{{  item  }}"
+        state: present
+        password: "{{pw | password_hash('sha512')}}"
+      with_sequence: start=51 end=100 format=dev%02x
+
+    - name: Creating user ops from 51-100
+      user:
+        name: "{{  item  }}"
+        state: present
+        password: "{{pw | password_hash('sha512')}}"
+      with_sequence: start=51 end=100 format=ops%02x
