@@ -1,0 +1,22 @@
+- name: deploy nginx default and 2048
+  hosts: pod-davidwah-managed2
+  become: true
+
+  tasks:
+    - name: clone repo app
+      command: "git clone https://github.com/gabrielecirulli/2048.git /home/{USER}/custom-nginx"
+    - name: change permission folder
+      command: "chmod -R 777 /home/{USER}/custom-nginx"
+    - name: copy dockerfile from controller
+      copy: 
+        src: ./Dockerfile
+        dest: /home/{USER}/custom-nginx
+
+    - name: run docker build
+      command: "docker build -t davidwah-custom-nginx /home/{USER}/custom-nginx "
+
+    - name: run docker-nginx-pod-davidwah-2048
+      command: "docker run --name=nginx-pod-davidwah-2048 -p 248:80 nginx"
+
+    - name: run docker-nginx-pod-davidwah-default
+      command: "docker run --name=nginx-pod-davidwah-default -p 8080:80 nginx"
