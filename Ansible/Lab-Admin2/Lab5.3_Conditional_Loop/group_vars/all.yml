@@ -1,0 +1,11 @@
+user_list:
+  - name: davidwahyupratomo Admin
+    username: davidwah
+    password: adinusa88
+    access: ALL
+    role: dbadmin
+  - name: davidwahyupratomo User
+    username: davidwah
+    password: adinusa88
+    access: SELECT
+    role: dbuser
