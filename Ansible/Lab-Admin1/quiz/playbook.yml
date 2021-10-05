@@ -4,10 +4,14 @@
 
   tasks:
     - name: Install MariaDB repository
-      apt_repository: repo='deb https://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu/ focal main' state=present
+      apt_repository: 
+        repo: deb [arch=amd64] https://mirror.klaus-uwe.me/mariadb/repo/10.4/ubuntu focal main
+        state: present
 
     - name: Add apt key
-      apt_key: keyserver=keyserver.ubuntu.com:80 id=0xF1656F24C74CD1D8
+      apt_key: 
+        keyserver: keyserver.ubuntu.com 
+        id: 0xF1656F24C74CD1D8
 
     - name: Install MariaDB
       apt:
